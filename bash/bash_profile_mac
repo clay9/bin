@@ -1,0 +1,24 @@
+# wcq 2021/9/20
+
+#******************** alise ********************
+ret_ll=`alias |grep -w ll`
+if [[ $ret_ll == "" ]];then
+   alias ll='ls -halFG'
+fi
+
+#******************** git ********************
+source ~/my/bin/bash/git-completion.bash #git自动补全
+
+#******************** env ********************
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+
+##self-bin
+export PATH=$PATH:~/my/bin #不能加"", 否则mac不识别
+##MacPorts
+if [ -d "/opt/local/bin" ]; then
+   export PATH="$PATH:/opt/local/bin"
+fi
+if [ -d "/opt/local/sbin" ]; then
+   export PATH="$PATH:/opt/local/sbin"
+fi	

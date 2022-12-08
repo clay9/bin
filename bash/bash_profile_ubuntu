@@ -1,0 +1,37 @@
+# wcq 2021/9/20
+
+
+#******************** alise ********************
+ret_ll=`alias |grep -w ll`
+if [[ $ret_ll == "" ]];then
+   alias ll='ls -halFG'
+fi
+
+#******************** git ********************
+source ~/my/bin/bash/git-completion.bash #git自动补全
+
+#***************** ssh-agent ******************
+# 获取bash时候，确保启动ssh-agent && ssh-add
+ssh_agent_pid=`echo $SSH_AGENT_PID`
+if [[ $ssh_agent_pid != "" ]]; then
+   ssh-add ~/my/bin/ssh/id_rsa_github > /dev/null
+else
+   # 这里使用ssh-add添加密钥之后, 在bash中ssh-add l不会显示出来 (不知道为什么?)
+   # 但是密钥确实已经添加了, 可以正常使用
+   eval $(ssh-agent -s) && ssh-add ~/my/bin/ssh/id_rsa_github > /dev/null
+fi
+# 退出bash时候，关闭ssh-agent
+trap 'eval $(ssh-agent -k)' 0
+
+#******************** env ********************
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+
+##self-bin
+export PATH=$PATH:~/my/bin #不能加"", 否则mac不识别
+
+##protobuf
+if [ -d "/usr/local/Cellar/protobuf/3.7.1" ];then
+   export  PROTOBUF=/usr/local/Cellar/protobuf/3.7.1
+   export  PATH=$PATH:$PROTOBUF/bin
+fi
