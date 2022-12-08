@@ -120,6 +120,9 @@ fun_init_bash_for_mac(){
 	    echo -e "\n# added by wcq"  >> $rc
 	    echo ". ~/my/bin/bash/bash_profile_mac"    >> $rc
 
+	    ## set zsh theme
+	    sed -i "" "/^ZSH_THEME/c\\"$'\n'"ZSH_THEME=\"apple\"" $rc
+
 	    tput setaf 3
 	    printf 'step%2s. %-25s init success\n' $((step++)) "/bin/bash"
 	    tput sgr0
