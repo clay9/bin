@@ -52,7 +52,9 @@ fun_auto_push(){
 	return 0
     else
 	# push的时候不管成功与否 都不想获得提示; 后面会统一查看status, 找到push失败的工程
-	ret_msg=`git push -q 2>&1`
+	git push -q 2>&1
+	cbranch=`git symbolic-ref --short HEAD`
+	ret_msg=`git log --pretty=oneline ${cbranch}...origin/${cbranch}`
 	if [[ $ret_msg == "" ]]; then
 	    tput setaf 3
 	    printf 'step%2s. %-25s =>   %-25s push success\n' $((step++)) $2 $dir_show
@@ -67,8 +69,8 @@ fun_auto_push(){
 	    tar_file=my_git.log
 	    mkdir -p $tar_dir
 	    echo -e "\n\n--------------------------------------"  >> $tar_dir/$tar_file
-	    echo -e "$date\n" >> $tar_dir/$tar_file
-	    echo -e "push $dir_show\n$ret_msg" >> $tar_dir/$tar_file
+	    echo -e "$date" >> $tar_dir/$tar_file
+	    echo -e "push $dir_show fail" >> $tar_dir/$tar_file
 	fi
     fi
 }
