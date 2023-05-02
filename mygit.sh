@@ -52,7 +52,7 @@ fun_auto_push(){
 	return 0
     else
 	# push的时候不管成功与否 都不想获得提示; 后面会统一查看status, 找到push失败的工程
-	git push -q 2>&1
+	git push -q &>/dev/null
 	cbranch=`git symbolic-ref --short HEAD`
 	ret_msg=`git log --pretty=oneline ${cbranch}...origin/${cbranch}`
 	if [[ $ret_msg == "" ]]; then
