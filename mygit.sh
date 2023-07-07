@@ -127,7 +127,9 @@ fun_clone(){
     dir_show='~'${str#~}
 
     if ! [ -d $1 ]; then
-	git clone --branch master git@github.com:$2.git $1
+        # git vesion >= 2.13: --recurse-submodules
+        # git vesion <  2.12: --recursive
+	git clone --branch master --recurse-submodules git@github.com:$2.git $1
 
 	if [ -d $1 ]; then
 	    tput setaf 3
