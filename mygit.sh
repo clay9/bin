@@ -63,14 +63,6 @@ fun_auto_push(){
 	    tput setaf 1
 	    printf 'step%2s. %-25s =>   %-25s push fail\n' $((step++)) $2 $dir_show
 	    tput sgr0
-
-	    ## err-log
-	    tar_dir=~/my/bin/log
-	    tar_file=my_git.log
-	    mkdir -p $tar_dir
-	    echo -e "\n\n--------------------------------------"  >> $tar_dir/$tar_file
-	    echo -e "$date" >> $tar_dir/$tar_file
-	    echo -e "push $dir_show fail" >> $tar_dir/$tar_file
 	fi
     fi
 }
@@ -110,14 +102,6 @@ fun_auto_pull(){
 	    tput setaf 1
 	    printf 'step%2s. %-25s =>   %-25s pull fail\n' $((step++)) $2 $dir_show
 	    tput sgr0
-
-	    ## err-log
-	    tar_dir=~/my/bin/log
-	    tar_file=my_git.log
-	    mkdir -p $tar_dir
-	    echo -e "\n\n--------------------------------------"  >> $tar_dir/$tar_file
-	    echo -e "$date\n" >> $tar_dir/$tar_file
-	    echo -e "pull repository:: $dir_show\n$ret_msg" >> $tar_dir/$tar_file
 	fi
     fi
 }
