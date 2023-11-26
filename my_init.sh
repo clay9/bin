@@ -8,10 +8,9 @@
 #    1) bash基础环境
 #    2) git自动补全
 #    3) .emacs.d的连接
-# 2. crontab增加自己的my_crontab.sh
-# 3. ssh私钥
-# 4. 修改bin.git的remote为git地址
-# 5. 配置git config -- global
+# 2. ssh私钥
+# 3. 修改bin.git的remote为git地址
+# 4. 配置git config -- global
 
 
 bin_dir=~/my/bin
@@ -190,28 +189,6 @@ fun_init_bash_for_ubuntu(){
     done
 }
 
-#******************** crontab ********************
-fun_init_crontab(){
-    ##先导出现有的crontab列表, 再添加自己的, 防止覆盖
-    cd ~
-    crontab -l >.crontab_temp 2>/dev/null
-    ##检测自动的crontab是否已经在列表中
-    b_in_list=`cat .crontab_temp |grep -w "~/my/bin/my_crontab.sh"`
-    if [[ $b_in_list != "" ]]; then
-	tput setaf 2
-	printf 'step%2s. %-25s already have\n' $((step++)) "my_crontab"
-	tput sgr0
-    else
-	##每天晚上6:30执行
-	echo "30 18 * * * ~/my/bin/my_crontab.sh > /dev/null 2>&1" >>.crontab_temp
-	crontab .crontab_temp
-	tput setaf 3
-	printf 'step%2s. %-25s init success\n' $((step++)) "my_crontab"
-	tput sgr0
-    fi
-    rm -f .crontab_temp
-}
-
 #********************   git   ********************
 fun_init_git(){
     git --version > /dev/null 2>&1
@@ -221,8 +198,8 @@ fun_init_git(){
        printf 'step%2s. %-25s init fail. no git found\n' $((step++)) "git env"
        tput sgr0
     else
-	git config --global user.name "wcq"
-	git config --global user.email "3@q.com"
+	git config --global user.name "clay"
+	git config --global user.email "x@gmail.com"
 
 	tput setaf 3
 	printf 'step%2s. %-25s init success\n' $((step++)) "git env"
@@ -232,7 +209,6 @@ fun_init_git(){
 
 #******************** bin.git ********************
 fun_reset_bin_git_url(){
-    # 这里指定了地址,
     cd $bin_dir
     git remote set-url origin git@github.com:clay9/bin.git
 
@@ -246,7 +222,7 @@ fun_help(){
 
  command         说明
  -------    ----------------------------------------------
-   *         init     bash, crontab, git
+   *         init     bash, git
 	     add      github_id_rsa
 "
 }
@@ -258,7 +234,6 @@ case $1 in
     *)
 	fun_set_file_mode
 	fun_init_bash
-	fun_init_crontab
 	fun_init_git
 	fun_reset_bin_git_url
 	;;

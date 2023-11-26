@@ -7,9 +7,6 @@ if [[ $ret_ll == "" ]];then
    alias ll='ls -halFG'
 fi
 
-#******************** git ********************
-source ~/my/bin/bash/git-completion.bash #git自动补全
-
 #***************** ssh-agent ******************
 # 获取bash时候，确保启动ssh-agent && ssh-add
 ssh_agent_pid=`echo $SSH_AGENT_PID`
